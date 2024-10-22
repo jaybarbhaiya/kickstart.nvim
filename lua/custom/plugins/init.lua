@@ -17,4 +17,7 @@ return {
       crates.show()
     end,
   },
+  {
+    'github/copilot.vim',
+  },
 }
