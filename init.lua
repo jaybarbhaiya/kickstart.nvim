@@ -768,12 +768,12 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'Mofiqul/vscode.nvim',
+    'projekt0n/github-nvim-theme',
+    name = 'github-theme',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
-      vim.o.background = 'dark'
       -- Load the colorscheme here.
-      vim.cmd.colorscheme 'vscode'
+      vim.cmd.colorscheme 'github_dark_default'
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
     end,
@@ -888,6 +888,14 @@ require('lazy').setup({
     },
   },
 })
+
+require 'kickstart.plugins.switch_case'
+vim.keymap.set(
+  'n',
+  '<leader>sc',
+  '<cmd>lua require("kickstart.plugins.switch_case").switch_case()<CR>',
+  { noremap = true, silent = true, desc = '[S]witch [C]ase: Camel and Snake' }
+)
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
