@@ -263,7 +263,32 @@ require('lazy').setup({
           return vim.fn.executable 'make' == 1
         end,
       },
-      { 'nvim-telescope/telescope-ui-select.nvim' },
+      {
+        'nvim-telescope/telescope-ui-select.nvim',
+        config = function()
+          require('telescope').setup {
+            pickers = {
+              find_files = {
+                hidden = true,
+                -- needed to exclude some files & dirs from general search
+                -- when not included or specified in .gitignore
+                find_command = {
+                  'rg',
+                  '--files',
+                  '--hidden',
+                  '--glob=!**/.git/*',
+                  '--glob=!**/.idea/*',
+                  '--glob=!**/.vscode/*',
+                  '--glob=!**/build/*',
+                  '--glob=!**/dist/*',
+                  '--glob=!**/yarn.lock',
+                  '--glob=!**/package-lock.json',
+                },
+              },
+            },
+          }
+        end,
+      },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
