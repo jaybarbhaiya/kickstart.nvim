@@ -922,5 +922,10 @@ vim.keymap.set(
   { noremap = true, silent = true, desc = '[S]witch [C]ase: Camel and Snake' }
 )
 
+-- Write file keymap
+vim.keymap.set('n', '<leader>ww', ':w<CR>', { noremap = true, silent = true, desc = '[W]rite file' })
+-- Write all files and quit
+vim.keymap.set('n', '<leader>qq', ':wqa<CR>', { noremap = true, silent = true, desc = 'Write all and [Q]uit all' })
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
