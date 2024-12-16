@@ -267,6 +267,34 @@ require('lazy').setup({
         'nvim-telescope/telescope-ui-select.nvim',
         config = function()
           require('telescope').setup {
+            defaults = {
+              vimgrep_arguments = {
+                'rg',
+                '--color=never',
+                '--no-heading',
+                '--with-filename',
+                '--line-number',
+                '--column',
+                '--smart-case',
+                '--hidden', -- This includes hidden files
+                '-g',
+                '!.git', -- Exclude .git folder
+                '-g',
+                '!node_modules', -- Exclude node_modules folder
+                '-g',
+                '!**.lock', -- Exclude any lock files
+                '-g',
+                '!**/dist/*', -- Exclude dist folders
+                '-g',
+                '!**/build/*', -- Exclude build folders
+                '-g',
+                '!**/target/*', -- Exclude target folders
+                '-g',
+                '!**/vendor/*', -- Exclude vendor folders
+                '-g',
+                '!**/package-lock.json', -- Exclude package-lock.json
+              },
+            },
             pickers = {
               find_files = {
                 hidden = true,
@@ -276,6 +304,7 @@ require('lazy').setup({
                   'rg',
                   '--files',
                   '--hidden',
+
                   '--glob=!**/.git/*',
                   '--glob=!**/.idea/*',
                   '--glob=!**/.vscode/*',
