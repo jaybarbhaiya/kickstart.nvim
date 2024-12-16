@@ -20,4 +20,24 @@ return {
   {
     'github/copilot.vim',
   },
+  {
+    'nvim-tree/nvim-tree.lua',
+    config = function()
+      require('nvim-tree').setup {
+        sort = {
+          sorter = 'case_sensitive',
+        },
+        view = {
+          width = 30,
+        },
+        renderer = {
+          group_empty = false,
+        },
+        filters = {
+          dotfiles = false,
+        },
+      }
+      vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<CR>')
+    end,
+  },
 }
