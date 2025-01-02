@@ -40,4 +40,11 @@ return {
       vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<CR>')
     end,
   },
+  {
+    'nvim-java/nvim-java',
+    config = function()
+      require('java').setup()
+      require('lspconfig').jdtls.setup {}
+    end,
+  },
 }
