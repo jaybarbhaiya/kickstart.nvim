@@ -954,6 +954,14 @@ require('lazy').setup({
   },
 })
 
+-- for html lsp -> `npm i -g vscode-langservers-extracted`
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+require('lspconfig').html.setup {
+  capabilities = capabilities,
+}
+
 require 'kickstart.plugins.switch_case'
 vim.keymap.set(
   'n',
@@ -969,3 +977,8 @@ vim.keymap.set('n', '<leader>qq', ':wqa<CR>', { noremap = true, silent = true, d
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+--
+
+vim.keymap.set('n', '<leader>x', function()
+  vim.cmd 'silent! keeppatterns %s/\\s\\+$//e'
+end, { noremap = true, silent = true, desc = 'Trim whitespace' })
