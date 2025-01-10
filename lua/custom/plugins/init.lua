@@ -20,11 +20,11 @@ return {
   {
     'github/copilot.vim',
   },
-  {
-    'nvim-java/nvim-java',
-    config = function()
-      require('java').setup()
-      require('lspconfig').jdtls.setup {}
-    end,
-  },
+  -- {
+  --   'nvim-java/nvim-java',
+  --   config = function()
+  --     require('java').setup()
+  --     require('lspconfig').jdtls.setup {}
+  --   end,
+  -- },
 }
