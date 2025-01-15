@@ -4,11 +4,6 @@
 -- See the kickstart.nvim README for more information
 return {
   {
-    'pmizio/typescript-tools.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-    opts = {},
-  },
-  {
     'saecki/crates.nvim',
     ft = { 'rust', 'toml' },
     config = function(_, opts)
