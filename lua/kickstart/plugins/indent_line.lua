@@ -4,15 +4,12 @@ return {
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help ibl`
     config = function()
-      local highlight = {
-        'CursorColumn',
-        'Whitespace',
-      }
       require('ibl').setup {
-        indent = { highlight = highlight, char = '' },
+        indent = { char = '' },
         whitespace = {
-          highlight = highlight,
-          remove_blankline_trail = false,
+          highlight = {
+            'Whitespace',
+          },
         },
         scope = { enabled = true },
       }
