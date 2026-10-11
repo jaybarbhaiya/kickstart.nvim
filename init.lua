@@ -136,6 +136,7 @@ do
   require 'custom.plugins.fugitive'
   require 'custom.plugins.gitsigns'
   require 'custom.plugins.github-actions'
+  require 'custom.plugins.alpha-nvim'
 end
 
 -- The line beneath this is called `modeline`. See `:help modeline`
