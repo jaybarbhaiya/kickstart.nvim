@@ -115,7 +115,6 @@ do
   require 'kickstart.plugins.lint'
   require 'kickstart.plugins.autopairs'
   require 'kickstart.plugins.neo-tree'
-  require 'kickstart.plugins.colorscheme'
 
   -- NOTE: You can add your own plugins, configuration, etc. in `lua/custom/plugins/*.lua`.
   --
@@ -137,6 +136,8 @@ do
   require 'custom.plugins.gitsigns'
   require 'custom.plugins.github-actions'
   require 'custom.plugins.alpha-nvim'
+  require 'custom.plugins.ghostty-theme-sync'
+  require 'custom.plugins.catppuccin'
 end
 
 -- The line beneath this is called `modeline`. See `:help modeline`
