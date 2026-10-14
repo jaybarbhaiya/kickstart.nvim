@@ -137,7 +137,7 @@ do
   require 'custom.plugins.github-actions'
   require 'custom.plugins.alpha-nvim'
   require 'custom.plugins.ghostty-theme-sync'
-  require 'custom.plugins.catppuccin'
+  require 'custom.plugins.vscode-theme'
 end
 
 -- The line beneath this is called `modeline`. See `:help modeline`
