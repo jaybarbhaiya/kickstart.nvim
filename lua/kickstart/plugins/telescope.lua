@@ -73,13 +73,10 @@ do
       },
       live_grep = {
         theme = 'ivy',
-        find_command = {
-          'fd',
-          '--type',
-          'f',
+        additional_args = {
           '--hidden',
-          '--exclude',
-          '.git',
+          '--glob',
+          '!.git/*',
         },
       },
       git_files = {
