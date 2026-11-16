@@ -135,9 +135,8 @@ do
   require 'custom.plugins.fugitive'
   require 'custom.plugins.gitsigns'
   require 'custom.plugins.github-actions'
-  require 'custom.plugins.alpha-nvim'
-  require 'custom.plugins.ghostty-theme-sync'
   require 'custom.plugins.vscode-theme'
+  require 'custom.plugins.vim-pack-commands'
 end
 
 -- The line beneath this is called `modeline`. See `:help modeline`
