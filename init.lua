@@ -104,7 +104,7 @@ do
   require 'kickstart.plugins.keymap'
   require 'kickstart.plugins.vim-pack'
   require 'kickstart.plugins.ui'
-  require 'kickstart.plugins.telescope'
+  require 'kickstart.plugins.snacks'
   require 'kickstart.plugins.lsp'
   require 'kickstart.plugins.conform'
   require 'kickstart.plugins.code-completion'
@@ -114,7 +114,6 @@ do
   require 'kickstart.plugins.indent_line'
   require 'kickstart.plugins.lint'
   require 'kickstart.plugins.autopairs'
-  require 'kickstart.plugins.neo-tree'
 
   -- NOTE: You can add your own plugins, configuration, etc. in `lua/custom/plugins/*.lua`.
   --
@@ -131,12 +130,12 @@ do
   -- require 'custom.plugins.git'
   require 'custom.plugins.copilot'
   require 'custom.plugins.cds'
-  require 'custom.plugins.lazygit'
   require 'custom.plugins.fugitive'
   require 'custom.plugins.gitsigns'
   require 'custom.plugins.github-actions'
-  require 'custom.plugins.vscode-theme'
+  require 'custom.plugins.catppuccin'
   require 'custom.plugins.vim-pack-commands'
+  require 'custom.plugins.render-markdown'
 end
 
 -- The line beneath this is called `modeline`. See `:help modeline`
