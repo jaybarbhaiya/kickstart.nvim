@@ -2,9 +2,7 @@
 --
 -- Shows how to use the DAP plugin to debug your code.
 --
--- Primarily focused on configuring the debugger for Go, but can
--- be extended to other languages as well. That's why it's called
--- kickstart.nvim and not kitchen-sink.nvim ;)
+-- Configures DAP for Go, Java, Node.js, and browser-based JavaScript debugging.
 
 vim.pack.add {
   'https://github.com/mfussenegger/nvim-dap',
@@ -40,7 +38,7 @@ require('mason-nvim-dap').setup {
   -- You'll need to check that you have the required things installed
   -- online, please don't ask me how to install them :)
   ensure_installed = {
-    -- Update this to ensure that you have the debuggers for the langs you want
+    -- Go's adapter. Java and JavaScript adapters are installed by mason-tool-installer.
     'delve',
   },
 }
@@ -84,6 +82,56 @@ dapui.setup {
 dap.listeners.after.event_initialized['dapui_config'] = dapui.open
 dap.listeners.before.event_terminated['dapui_config'] = dapui.close
 dap.listeners.before.event_exited['dapui_config'] = dapui.close
+
+-- Java adapter registration is provided by nvim-jdtls after it loads the
+-- java-debug-adapter bundle. This attaches to the Maven-launched Spring Boot app.
+dap.configurations.java = {
+  {
+    type = 'java',
+    request = 'attach',
+    name = 'Attach Spring Boot (5005)',
+    hostName = '127.0.0.1',
+    port = 5005,
+  },
+}
+
+-- vscode-js-debug supports both browser (pwa-chrome) and Node (pwa-node) targets.
+for _, adapter in ipairs { 'pwa-chrome', 'pwa-node' } do
+  dap.adapters[adapter] = {
+    type = 'server',
+    host = '127.0.0.1',
+    port = '${port}',
+    executable = {
+      command = 'js-debug-adapter',
+      args = { '${port}' },
+    },
+  }
+end
+
+local js_configurations = {
+  {
+    type = 'pwa-chrome',
+    request = 'launch',
+    name = 'Debug UI5 app (Chrome)',
+    url = 'http://localhost:8089',
+    webRoot = '${workspaceFolder}/capricorn-ui/webapp',
+    sourceMaps = true,
+  },
+  {
+    type = 'pwa-node',
+    request = 'attach',
+    name = 'Attach to cds watch (9229)',
+    address = '127.0.0.1',
+    port = 9229,
+    cwd = '${workspaceFolder}',
+    sourceMaps = true,
+    skipFiles = { '<node_internals>/**' },
+  },
+}
+
+for _, filetype in ipairs { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' } do
+  dap.configurations[filetype] = js_configurations
+end
 
 -- Install golang specific config
 require('dap-go').setup {

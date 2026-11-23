@@ -115,9 +115,8 @@ do
     clangd = {},
     gopls = {},
     pyright = {},
-    vtsls= {},
+    vtsls = {},
     jsonls = {},
-    jdtls = {},
     --
     -- Some languages (like rust) have entire language plugins that can be useful:
     --    https://github.com/mrcjkb/rustaceanvim
@@ -162,6 +161,7 @@ do
 
   vim.pack.add {
     gh 'neovim/nvim-lspconfig',
+    gh 'mfussenegger/nvim-jdtls',
     gh 'mason-org/mason.nvim',
     gh 'mason-org/mason-lspconfig.nvim',
     gh 'WhoIsSethDaniel/mason-tool-installer.nvim',
@@ -184,7 +184,10 @@ do
   -- You can press `g?` for help in this menu.
   local ensure_installed = vim.tbl_keys(servers or {})
   vim.list_extend(ensure_installed, {
-    -- You can add other tools here that you want Mason to install
+    -- JDTLS is started through nvim-jdtls so its Java debug bundle can be loaded.
+    'jdtls',
+    'java-debug-adapter',
+    'js-debug-adapter',
   })
 
   require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -193,4 +196,42 @@ do
     vim.lsp.config(name, server)
     vim.lsp.enable(name)
   end
+
+  -- Start JDTLS through nvim-jdtls (rather than the generic LSP setup above)
+  -- so the Java debug adapter bundle is available to nvim-dap.
+  vim.api.nvim_create_autocmd('FileType', {
+    group = vim.api.nvim_create_augroup('kickstart-jdtls', { clear = true }),
+    pattern = 'java',
+    callback = function()
+      local jdtls = require 'jdtls'
+      local root_dir = require('jdtls.setup').find_root {
+        'mvnw',
+        'gradlew',
+        'pom.xml',
+        'build.gradle',
+        'settings.gradle',
+        '.git',
+      }
+      if not root_dir then return end
+
+      local project_name = vim.fn.fnamemodify(root_dir, ':t') .. '-' .. vim.fn.sha256(root_dir):sub(1, 8)
+      local workspace_dir = vim.fn.stdpath 'cache' .. '/jdtls-workspaces/' .. project_name
+
+      local bundles = {}
+      local debug_bundle = vim.fn.glob(
+        vim.fn.stdpath 'data' .. '/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar'
+      )
+      if debug_bundle ~= '' then table.insert(bundles, debug_bundle) end
+
+      jdtls.start_or_attach {
+        cmd = { 'jdtls', '-data', workspace_dir },
+        root_dir = root_dir,
+        init_options = { bundles = bundles },
+        on_attach = function()
+          jdtls.setup_dap { hotcodereplace = 'auto' }
+          require('jdtls.dap').setup_dap_main_class_configs()
+        end,
+      }
+    end,
+  })
 end
