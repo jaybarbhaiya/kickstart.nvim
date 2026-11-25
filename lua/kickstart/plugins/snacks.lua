@@ -16,11 +16,20 @@ do
     gitbrowse = { enabled = true },
     dashboard = {
       enabled = true,
+      preset = {
+        header = [[
+       __ ____             _          
+      / // __ )____ _   __(_)___ ___  
+ __  / // __  / __ \ | / / / __ `__ \ 
+/ /_/ // /_/ / / / / |/ / / / / / / / 
+\____//_____/_/ /_/|___/_/_/ /_/ /_/  
+]],
+      },
       sections = {
         { section = 'header' },
         { section = 'keys', gap = 1, padding = 1 },
-        { icon = ' ', title = 'Recent Files', section = 'recent_files', indent = 2, padding = 1 },
-        { icon = ' ', title = 'Projects', section = 'projects', indent = 2, padding = 1 },
+        -- { icon = ' ', title = 'Recent Files', section = 'recent_files', indent = 2, padding = 1 },
+        -- { icon = ' ', title = 'Projects', section = 'projects', indent = 2, padding = 1 },
       },
     },
     picker = {
